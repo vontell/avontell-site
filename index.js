@@ -1,23 +1,40 @@
 var express = require('express');
 var cool = require('cool-ascii-faces');
-var app = express();
+var mongo = require('mongodb');
 
-app.set('port', (process.env.PORT || 5000));
+var mongoUri = "mongodb://heroku_89f3mp4g:gqpmijhv6on16unqg2i040rg3@ds047305.mongolab.com:47305/heroku_89f3mp4g";
 
-app.use(express.static(__dirname + '/public'));
+mongo.MongoClient.connect(uri, function(err, db) {
+  
+    if(err){
+        throw err;
+    }
+    
+    var app = express();
+    
+    app.set('port', (process.env.PORT || 5000));
 
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+    app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(request, response) {
-  response.render('public/index.html');
-});
+    // views is directory for all template files
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'ejs');
+    
+    app.get('/', function(request, response) {
+      response.render('public/index.html');
+    });
+    
+    app.get('/sample_post', function(request, response) {
+      db.collection('posts').find({}).toArray(function(err, results){
+          if(err) {
+              throw err;
+          }
+          response.json(results);
+      });
+    });
 
-app.get('/cool', function(request, response) {
-  response.send(cool());
-});
-
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+    app.listen(app.get('port'), function() {
+      console.log('Node app is running on port', app.get('port'));
+    });
+    
 });
