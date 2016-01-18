@@ -24,8 +24,19 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
       response.render('public/index.html');
     });
     
-    app.get('/sample_post', function(request, response) {
+    app.get('api/posts', function(request, response) {
       db.collection('posts').find({}).toArray(function(err, results){
+          if(err) {
+              throw err;
+          }
+          response.json(results);
+      });
+    });
+    
+    app.get('api/posts/*', function(request, response) {
+        var id = req.path.slice(11);
+        console.log(id);
+      db.collection('posts').find({ id: id }).toArray(function(err, results){
           if(err) {
               throw err;
           }
