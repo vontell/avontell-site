@@ -34,7 +34,7 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
     });
     
     app.get('/api/posts/*', function(request, response) {
-        var id = req.path.slice(11);
+        var id = request.path.slice(11);
         console.log(id);
       db.collection('posts').find({ id: id }).toArray(function(err, results){
           if(err) {
