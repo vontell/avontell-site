@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.1.5",
-  "description": "A sample Node.js app using Express 4",
+  "name": "avontell-site",
+  "version": "0.0.1",
+  "description": "A website from Aaron Vontell with loads of cool things",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
