@@ -4,7 +4,7 @@ var mongo = require('mongodb');
 
 var mongoUri = "mongodb://heroku_89f3mp4g:gqpmijhv6on16unqg2i040rg3@ds047305.mongolab.com:47305/heroku_89f3mp4g";
 
-mongo.MongoClient.connect(uri, function(err, db) {
+mongo.MongoClient.connect(mongoUri, function(err, db) {
   
     if(err){
         throw err;
