@@ -43,7 +43,39 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
     });
 
     app.get('/notes/post/*', function(request, response) {
-        response.redirect('/notes/post.html?id=' + request.path.slice(12));
+        var id = request.path.slice(12);
+        db.collection('posts').find({ id: id }).toArray(function(err, results){
+            if(err) {
+                throw err;
+            }
+            else if (!results.length){
+              response.redirect('/notfound');
+            }
+            else{
+              response.redirect('/notes/post.html?id=' + request.path.slice(12));
+            }
+        });
+    });
+
+    // Catch 404 and forward to error handler
+  	app.use(function(req, res, next) {
+  	  var err = new Error('Not Found');
+  	  err.status = 404;
+  	  next(err);
+  	});
+
+    app.use(function(err, req, res, next) {
+    	if (!err.status) {
+    		logger.error(err);
+    		throw err;
+    	}
+    	res.status(err.status || 500);
+      console.log(err.status);
+      if(err.status == 404){
+        res.redirect("/404.html");
+      }
+      res.send('<b>' + err.status + ':</b> ' + err.message);
+
     });
 
     app.listen(app.get('port'), function() {

@@ -12,10 +12,10 @@
     <title>Notes - Aaron Vontell</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="notes/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/clean-blog.min.css" rel="stylesheet">
+    <link href="notes/css/clean-blog.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -40,9 +40,6 @@
       }
       .chip-active {
         background-color: #bab5b5;
-      }
-      .clicked {
-        background-color: #d4cfcf;
       }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -69,17 +66,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Class Notes - Aaron Vontell</a>
+                <a class="navbar-brand" href="index.html">Aaron Vontell</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="../index.html">Back to avontell.com</a>
+                        <a href="index.html">Back to avontell.com</a>
                     </li>
                     <li>
-                        <a href="../index.html#contact">Contact</a>
+                        <a href="/notes/">Notes</a>
+                    </li>
+                    <li>
+                        <a href="index.html#contact">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -90,44 +90,19 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/home_banner.jpg')">
+    <header class="intro-header" style="background-image: url('img/moon.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>Class Notes</h1>
+                        <h1>Sorry, couldn't find that</h1>
                         <hr class="small">
-                        <span class="subheading">A collection of class notes from various classes and seminars that I have taken at MIT and elsewhere</span>
-                        <br />
-                        <a href ng-repeat="tag in tags" ng-click="filterTags(tag); showDetails = !showDetails;">
-                          <div ng-class="{clicked : showDetails}" class="chip">{{tag}}  <i class="fa fa-times" ng-show="showDetails"></i></div>
-                        </a>
+                        <span class="subheading">Click on the links above to get back to safety</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-preview" ng-repeat="post in filteredPosts">
-                <a href="post/{{post.id}}">
-                    <h2 class="post-title" ng-bind="post.title"></h2>
-                    <h3 ng-bind="post.class"></h3>
-                    <h3 class="post-subtitle" ng-bind="post.subtitle"></h3>
-                </a>
-                <div class="chip" ng-repeat="tag in post.tags">
-                  {{tag}}
-                </div>
-                <br /><br />
-                <p class="post-meta">Posted by <a href="http://avontell.com">{{post.author}}</a> on {{post.date}}</p>
-                <hr>
-            </div>
-            </div>
-        </div>
-    </div>
 
     <hr>
 
@@ -181,52 +156,5 @@
     <script src="js/clean-blog.min.js"></script>
 
 </div></body>
-
-<script>
-
-var app = angular.module('myApp', []);
-app.controller('notesOverviewCtl', function($scope, $http) {
-    $http.get('/api/posts/').
-        success(function(data) {
-            $scope.allposts = data;
-            $scope.tags = {};
-            $scope.tagStringsChecked = {};
-            for(var i = 0; i < data.length; i++){
-              for(var j = 0; j < data[i].tags.length; j++){
-                $scope.tags[data[i].tags[j]] = data[i].tags[j];
-                //$scope.tagStringsChecked[data[i].tags[j]] = data[i].tags[j];
-              }
-            }
-            $scope.filteredPosts = $scope.allposts;
-        });
-
-    $scope.filterTags = function(tagString){
-        if($scope.tagStringsChecked[tagString]){
-            delete $scope.tagStringsChecked[tagString];
-        }
-        else{
-            $scope.tagStringsChecked[tagString] = tagString;
-        }
-        if(Object.keys($scope.tagStringsChecked).length == 0){
-            $scope.filteredPosts = $scope.allposts;
-        }
-        else{
-            $scope.filteredPosts = $scope.allposts.filter(isTagged);
-        }
-    }
-
-    // Function that returns an array of filtered posts
-    function isTagged(post){
-      for(var i = 0; i < post.tags.length; i++){
-        if($scope.tagStringsChecked[post.tags[i]]){
-          return true;
-        }
-      }
-      return false;
-    }
-
-});
-
-</script>
 
 </html>
