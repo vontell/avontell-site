@@ -56,6 +56,12 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
             }
         });
     });
+    
+    app.post('api/posts', funtion(request, response) {
+        db.collection('posts').distinct('id').toArray(function(err, results){
+            console.log(results);
+        })
+    });
 
     // Catch 404 and forward to error handler
   	app.use(function(req, res, next) {
