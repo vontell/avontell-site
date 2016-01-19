@@ -22,13 +22,33 @@
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
+    <style>
+      .chip {
+        display: inline-block;
+        height: 32px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.6);
+        line-height: 32px;
+        padding: 0 12px;
+        border-radius: 16px;
+        background-color: #e4e4e4;
+        margin-right:8px;
+        }
+      .chip:hover {
+        background-color: #d4cfcf;
+      }
+      .chip-active {
+        background-color: #bab5b5;
+      }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 </head>
@@ -75,6 +95,10 @@
                         <h1>Class Notes</h1>
                         <hr class="small">
                         <span class="subheading">A collection of class notes from various classes and seminars that I have taken at MIT and elsewhere</span>
+                        <br />
+                        <a href ng-repeat="tag in tags" ng-click="filterTags(tag); showDetails = !showDetails;">
+                          <div class="chip">{{tag}}  <i class="fa fa-times" ng-show="showDetails"></i></div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -85,16 +109,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-preview" ng-repeat="post in allposts">
+            <div class="post-preview" ng-repeat="post in filteredPosts">
                 <a href="post/{{post.id}}">
-                    <h2 class="post-title">
-                        {{post.title}}
-                    </h2>
-                    <h3>{{post.class}}</h3>
-                    <h3 class="post-subtitle">
-                        {{post.subtitle}}
-                    </h3>
+                    <h2 class="post-title" ng-bind="post.title"></h2>
+                    <h3 ng-bind="post.class"></h3>
+                    <h3 class="post-subtitle" ng-bind="post.subtitle"></h3>
                 </a>
+                <div class="chip" ng-repeat="tag in post.tags">
+                  {{tag}}
+                </div>
+                <br /><br />
                 <p class="post-meta">Posted by <a href="http://avontell.com">{{post.author}}</a> on {{post.date}}</p>
             </div>
             <hr>
@@ -154,17 +178,52 @@
     <script src="js/clean-blog.min.js"></script>
 
 </div></body>
-    
+
 <script>
-    
+
 var app = angular.module('myApp', []);
 app.controller('notesOverviewCtl', function($scope, $http) {
     $http.get('/api/posts/').
         success(function(data) {
             $scope.allposts = data;
+            $scope.tags = {};
+            $scope.tagStringsChecked = {};
+            for(var i = 0; i < data.length; i++){
+              for(var j = 0; j < data[i].tags.length; j++){
+                $scope.tags[data[i].tags[j]] = data[i].tags[j];
+                //$scope.tagStringsChecked[data[i].tags[j]] = data[i].tags[j];
+              }
+            }
+            $scope.filteredPosts = $scope.allposts;
         });
+
+    $scope.filterTags = function(tagString){
+        if($scope.tagStringsChecked[tagString]){
+            delete $scope.tagStringsChecked[tagString];
+        }
+        else{
+            $scope.tagStringsChecked[tagString] = tagString;
+        }
+        if(Object.keys($scope.tagStringsChecked).length == 0){
+            $scope.filteredPosts = $scope.allposts;
+        }
+        else{
+            $scope.filteredPosts = $scope.allposts.filter(isTagged);
+        }
+    }
+
+    // Function that returns an array of filtered posts
+    function isTagged(post){
+      for(var i = 0; i < post.tags.length; i++){
+        if($scope.tagStringsChecked[post.tags[i]]){
+          return true;
+        }
+      }
+      return false;
+    }
+
 });
-    
+
 </script>
 
 </html>

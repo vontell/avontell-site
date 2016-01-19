@@ -16,7 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
-    
+
     <!-- Math CSS -->
     <script type="text/javascript" async
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -26,7 +26,23 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    
+
+    <style>
+      .chip {
+        display: inline-block;
+        height: 32px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.6);
+        line-height: 32px;
+        padding: 0 12px;
+        border-radius: 16px;
+        background-color: #e4e4e4;
+        margin-right:8px;
+        opacity:50%;
+        }
+    </style>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -95,19 +111,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-bind-html="htmlContent">
-                    
+
                     <!--
-                    
+
                     <p>This is an example paragraph.</p>
 
                     <h2 class="section-heading">An example subheading</h2>
 
                     <p>This is another example paragraph</p>
-                    
+
                     <p>Here is some inline math as an example: \(ax^2 + bx + c = 0\), while this is a new line example:
-                        
+
                         $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
-                    
+
                     </p>
 
                     <blockquote>This would be an example of a blockquote</blockquote>
@@ -122,7 +138,7 @@
                     <span class="caption text-muted">This would be an example quote.</span>
 
                     <p>A final example paragraph</p> --->
-                    
+
                 </div>
             </div>
         </div>
@@ -180,11 +196,11 @@
     <script src="js/clean-blog.min.js"></script>
 
 </div></body>
-    
+
 <script>
-    
+
     var id = location.href.slice(location.href.indexOf('?')).slice(4);
-    
+
     var appPost = angular.module('myPostApp', []);
     appPost.controller('notesCtl', function($rootScope, $scope, $http, $sce, $window) {
     $http.get('/api/posts/' + id).
@@ -195,7 +211,7 @@
             $scope.htmlContent = $sce.trustAsHtml($scope.post.content);
         });
     });
-    
+
 </script>
 
 </html>
