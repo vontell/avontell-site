@@ -60,6 +60,7 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
     app.post('api/posts/', function(request, response) {
         db.collection('posts').distinct('id').toArray(function(err, results){
             console.log(results);
+            res.json(results);
         });
     });
 
