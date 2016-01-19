@@ -28,10 +28,12 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 </head>
 
-<body>
+<body><div ng-app="myApp" ng-controller="notesOverviewCtl">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -83,17 +85,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-preview">
-                <a href="posts/post.html">
+            <div class="post-preview" ng-repeat="post in allposts">
+                <a href="post/{{post.id}}">
                     <h2 class="post-title">
-                        Example Title
+                        {{post.title}}
                     </h2>
-                    <h3>Class / Lecture</h3>
+                    <h3>{{post.class}}</h3>
                     <h3 class="post-subtitle">
-                        Example Subtitle
+                        {{post.subtitle}}
                     </h3>
                 </a>
-                <p class="post-meta">Posted by <a href="http://avontell.com">Example Author</a> on Month Day, Year</p>
+                <p class="post-meta">Posted by <a href="http://avontell.com">{{post.author}}</a> on {{post.date}}</p>
             </div>
             <hr>
             </div>
@@ -151,6 +153,18 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
 
-</body>
+</div></body>
+    
+<script>
+    
+var app = angular.module('myApp', []);
+app.controller('notesOverviewCtl', function($scope, $http) {
+    $http.get('/api/posts/').
+        success(function(data) {
+            $scope.allposts = data;
+        });
+});
+    
+</script>
 
 </html>

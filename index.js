@@ -1,5 +1,4 @@
 var express = require('express');
-var cool = require('cool-ascii-faces');
 var mongo = require('mongodb');
 
 var mongoUri = "mongodb://heroku_89f3mp4g:gqpmijhv6on16unqg2i040rg3@ds047305.mongolab.com:47305/heroku_89f3mp4g";
@@ -25,7 +24,7 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
     });
     
     app.get('/api/posts', function(request, response) {
-      db.collection('posts').find({}).toArray(function(err, results){
+      db.collection('posts').find({}, { _id: 0 }).toArray(function(err, results){
           if(err) {
               throw err;
           }
@@ -42,6 +41,10 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
           }
           response.json(results);
       });
+    });
+    
+    app.get('/notes/post/*', function(request, response) {
+        response.redirect('/notes/post.html?id=' + request.path.slice(12));
     });
 
     app.listen(app.get('port'), function() {
