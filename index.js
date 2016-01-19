@@ -80,8 +80,9 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
       if(err.status == 404){
         res.redirect("/404.html");
       }
-      res.send('<b>' + err.status + ':</b> ' + err.message);
-
+      else{
+          res.send('<b>' + err.status + ':</b> ' + err.message);
+      }
     });
 
     app.listen(app.get('port'), function() {
