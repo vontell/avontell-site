@@ -1,5 +1,6 @@
 var express = require('express');
 var mongo = require('mongodb');
+var bodyParser = require('body-parser');
 
 var mongoUri = "mongodb://heroku_89f3mp4g:gqpmijhv6on16unqg2i040rg3@ds047305.mongolab.com:47305/heroku_89f3mp4g";
 
@@ -10,10 +11,13 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
     }
 
     var app = express();
-
+    
     app.set('port', (process.env.PORT || 5000));
 
     app.use(express.static(__dirname + '/public'));
+    
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: true}));
 
     // views is directory for all template files
     app.set('views', __dirname + '/views');
@@ -58,9 +62,29 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
     });
     
     app.post('/api/posts/', function(request, response) {
-        db.collection('posts').distinct('id').toArray(function(err, results){
-            console.log(results);
-            res.json(results);
+        db.collection('posts').distinct('id', function(err, results){
+            var max = 0;
+            for (var i = 0; i < results.length; i++) {
+                var result = parseInt(results[i]);
+                if (result > max) {
+                    max = result;
+                }
+            }
+            var id = '' + (max + 1);
+            var document = {
+                id: id
+            };
+            for (var field in request.body) {
+                if (request.body.hasOwnProperty(field)) {
+                    document[field] = request.body[field];
+                }
+            }
+            db.collection('posts').insert(document, function(err) {
+                if (err) {
+                    console.log(err);
+                }
+                response.json({ success: !err });
+            });
         });
     });
 
@@ -73,7 +97,7 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
 
     app.use(function(err, req, res, next) {
     	if (!err.status) {
-    		logger.error(err);
+    		console.error(err);
     		throw err;
     	}
     	res.status(err.status || 500);
