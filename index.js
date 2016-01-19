@@ -76,7 +76,12 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
             };
             for (var field in request.body) {
                 if (request.body.hasOwnProperty(field)) {
-                    document[field] = request.body[field];
+                    if(field === "tags"){
+                        document[field] = JSON.parse(request.body[field]);
+                    }
+                    else{
+                        document[field] = request.body[field];
+                    }
                 }
             }
             db.collection('posts').insert(document, function(err) {
