@@ -1,21 +1,3 @@
-<!-- Snippet for post overview -->
-
-<div class="post-preview">
-    <a href="posts/post.html">
-        <h2 class="post-title">
-            Example Title
-        </h2>
-        <h3>Class / Lecture</h3>
-        <h3 class="post-subtitle">
-            Example Subtitle
-        </h3>
-    </a>
-    <p class="post-meta">Posted by <a href="http://avontell.com">Example Author</a> on Month Day, Year</p>
-</div>
-<hr>
-
-<!-- Snippet for actual post -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,23 +9,41 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Notes Title - Aaron Vontell</title>
+    <title>Notes - Aaron Vontell</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/clean-blog.min.css" rel="stylesheet">
-    
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
     <!-- Math CSS -->
     <script type="text/javascript" async
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
 
     <!-- Custom Fonts -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <style>
+      .chip {
+        display: inline-block;
+        height: 32px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.6);
+        line-height: 32px;
+        padding: 0 12px;
+        border-radius: 16px;
+        background-color: #e4e4e4;
+        margin-right:8px;
+        opacity:50%;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,7 +54,7 @@
 
 </head>
 
-<body>
+<body><div ng-app="myPostApp" ng-controller="notesCtl">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -67,20 +67,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../index.html">Class Notes - Aaron Vontell</a>
+                <a class="navbar-brand" href="index.html">Class Notes - Aaron Vontell</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="../index.html">Notes Home</a>
+                        <a href="index.html">Notes Home</a>
                     </li>
                     <li>
-                        <a href="post#.html">Previous</a>
+                        <a href="post/{{currentId - 1}}">Previous</a>
                     </li>
                     <li>
-                        <a href="post#.html">Next</a>
+                        <a href="post/{{currentId + 1}}">Next</a>
                     </li>
                 </ul>
             </div>
@@ -91,15 +91,15 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('../img/post-bg.jpg')">
+    <header class="intro-header" style="background-image: url('img/post-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Example Title</h1>
-                        <h2 class="subheading">Example Subtitle</h2>
-                        Class / Lecture
-                        <span class="meta">Posted by <a href="http://avontell.com">Example Author</a> on Month Date, Year</span>
+                        <h1>{{post.title}}</h1>
+                        <h2 class="subheading">{{post.subtitle}}</h2>
+                        {{post.class}}
+                        <span class="meta">Posted by <a href="{{post.authorurl}}">{{post.author}}</a> on {{post.date}}</span>
                     </div>
                 </div>
             </div>
@@ -110,17 +110,18 @@
     <article>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-bind-html="htmlContent">
+
                     <p>This is an example paragraph.</p>
 
                     <h2 class="section-heading">An example subheading</h2>
 
                     <p>This is another example paragraph</p>
-                    
+
                     <p>Here is some inline math as an example: \(ax^2 + bx + c = 0\), while this is a new line example:
-                        
+
                         $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
-                    
+
                     </p>
 
                     <blockquote>This would be an example of a blockquote</blockquote>
@@ -130,11 +131,12 @@
                     <p>Yet another paragraph</p>
 
                     <a href="#">
-                        <img class="img-responsive" src="../img/post-sample-image.jpg" alt="">
+                        <img class="img-responsive" src="img/post-sample-image.jpg" alt="">
                     </a>
                     <span class="caption text-muted">This would be an example quote.</span>
 
                     <p>A final example paragraph</p>
+
                 </div>
             </div>
         </div>
@@ -191,6 +193,23 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
 
-</body>
+</div></body>
+
+<script>
+
+    var id = location.href.slice(location.href.indexOf('?')).slice(4);
+
+    var appPost = angular.module('myPostApp', []);
+    appPost.controller('notesCtl', function($rootScope, $scope, $http, $sce, $window) {
+    $http.get('/api/posts/' + id).
+        success(function(data) {
+            $scope.currentId = parseInt(id);
+            $scope.post = data[0];
+            $window.document.title = $scope.post.title;
+            $scope.htmlContent = $sce.trustAsHtml($scope.post.content);
+        });
+    });
+
+</script>
 
 </html>
