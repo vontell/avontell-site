@@ -96,10 +96,10 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>{{post.title}}</h1>
-                        <h2 class="subheading">{{post.subtitle}}</h2>
-                        {{post.class}}
-                        <span class="meta">Posted by <a href="{{post.authorurl}}">{{post.author}}</a> on {{post.date}}</span>
+                        <h1>Randomness</h1>
+                        <h2 class="subheading">Notes on the idea of randomness, and its applications to computer science and theory.</h2>
+                        <em>Quantum Computing Since Democritus</em> by Scott Aaronson
+                        <span class="meta">Posted by <a href="http://avontell.com">Aaron Vontell</a> on 1-27-2016</span>
                     </div>
                 </div>
             </div>
@@ -110,14 +110,85 @@
     <article>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-bind-html="htmlContent">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-                    <p>This is an example paragraph.</p>
-
-                    <h2 class="section-heading">An example subheading</h2>
-
-                    <p>This is another example paragraph</p>
-
+                    <p>An introduction to Design and Analysis of Algorithms, taught during the Spring semester of 2016 at MIT. This class has 6 PSETs, 2 quizzes, and 1 final.</p>
+                    <p><b>Today's Message:</b> <i>Very similar problems can have very different solutions and complexities depending on the procedure used to solve them.</i></p>
+                    <h2 class="section-heading">Course sections</h2>
+                    <p>This class is broken up into two sections:</p>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <h3 style="text-align:center;">Techniques</h3>
+                            <ul>
+                                <li>Divide and Conquer</li>
+                                <li>Amortization</li>
+                                <li>Randomization</li>
+                                <li>Greedy Algorithms</li>
+                                <li>Dynamic Programming</li>
+                                <li>Linear Programming</li>
+                                <li>Reduction</li>
+                                <li>Approximate Algorithms</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <h3 style="text-align:center;">Models of Computation</h3>
+                            <ul>
+                                <li>Online Algorithms</li>
+                                <li>Streaming Algorithms</li>
+                                <li>Sublinear Algorithms</li>
+                                <li>Distributed Algorithms</li>
+                                <li>Sampling Algorithms</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h2 class="section-heading">Basic complexity</h2>
+                    <ul>
+                        <li><b>P</b> = Problems solvable in polynomal time \(O(n^c)\)</li>
+                        <ul><li><i>Ex: Shortest path algorithm</i></li></ul>
+                        <li><b>NP</b> = Problems whose solutions can be checked in polynomial time (non-deterministic polynomial time)</li>
+                        <li><b>NP-Hard</b> = Problems that are at least as hard as any NP problem</li>
+                        <li><b>NP-Complete</b> = Problems in both NP and NP-hard</li>
+                        <i>* For the sake of this class, we assume P &ne; NP and therefore NP - Hard is not in P.</i>
+                    </ul>
+                    <br />
+                    <img class="img-responsive" src="img/complexity.svg" alt="">
+                    <span class="caption text-muted">Classifications of complexity classes</span>
+                    
+                    <h2 class="section-heading">Interval scheduling</h2>
+                    <p>Interval scheduling is applied when one is looking to arrange a schedule for classes, jobs, tasks, and more. It is usually defined in the following way:</p>
+                    <ul>
+                        <li>There is a single resource (human, CPU, etc...)</li>
+                        <li>There are \(n\) requests/classes/jobs, each which runs in an interval \(r_i = [a_i, b_i]\)</li>
+                        <li>Requests \(r_i\) and \(r_j\) are compatible if \(r_i \cap r_j = \oslash\)</li>
+                        <li><b>Goal:</b> Find the maximum number of mutually compatible requests.</li>
+                    </ul>
+                    
+                    <p>In our first attempt, we will claim that a <b>greedy algorithm</b> is good. The greedy algorithm will be applied using the following steps:</p>
+                    <ol>
+                        <li>Look at inputs one at a time, and make a very local choice about it.</li>
+                        <li>Use a simple rule to pick an interval \(r_i\). We put this \(r_i\) into the solution, and discard any other intervals that are incompatible with \(r_i\). </li>
+                        <li>Repeat until we have looked at every interval left in the set of given intervals.</li>
+                    </ol>
+                    
+                    <p>This solution seems to work, but what is the problem? The problem is located in step 2, where we use a 'simple rule' to choose our interval. However, what is this rule? It turns out that defining the rule to pick these intervals is not so trivial. Here are some ideas that might work:</p>
+                    
+                    <ul>
+                        <li>Pick the smallest interval first</li>
+                        <li>Select the interval with the smallest number of incompatibilities</li>
+                        <li>Select the interval with the smallest starting time, or the smallest \(a_i\)</li>
+                        <li><b>Select the interval with the earliest finish time, or the smallest \(b_i\)</b></li>
+                    </ul>
+                    
+                    <p>It turns out that the last option gives us the best and optimal result, while the others do not (it is quite easy to find counter examples for each case). We can prove this through a "cut and paste" method, where we <i>transform any solution into a greedy solution with no loss in quality</i>.</p>
+                    <p>Let's suppose we have a greedy solution and an optimal solution that has been given to us. The first difference between the two is at interval \(r_i\), where the optimal solution is indicated by \(r'_i\). However, we can claim that \(a'_3 > b_{i-1}\) and \(b'_i > b_i\)</p>, since the first case would suggest an incompatible schedule and the second case would be solved by our greedy algorithm picking the interval that ended sooner. Therefore, we see that our greedy solution in optimal.
+                    <p>While the greedy algorithm gave optimal solution in this situation, it does not in other cases. In the case of weighted scheduling where we want to maximize the weight, dynamic programming works better. Even worst, when doing Job Interval Scheduling where each interval has multiple possibilities for locations, the problem turns out to be NP-Hard. As you can see, today's messages at the top of the page is very much true.</p>
+                    
+                    <!--ol>
+                        <li>
+                            \(\)
+                        </li>
+                    </ol>
+                    
                     <p>Here is some inline math as an example: \(ax^2 + bx + c = 0\), while this is a new line example:
 
                         $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
@@ -135,7 +206,7 @@
                     </a>
                     <span class="caption text-muted">This would be an example quote.</span>
 
-                    <p>A final example paragraph</p>
+                    <p>A final example paragraph</p-->
 
                 </div>
             </div>
