@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Notes - Aaron Vontell</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Math CSS -->
+    <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <style>
+      .chip {
+        display: inline-block;
+        height: 32px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.6);
+        line-height: 32px;
+        padding: 0 12px;
+        border-radius: 16px;
+        background-color: #e4e4e4;
+        margin-right:8px;
+        opacity:50%;
+        }
+        .table td {
+           text-align: center;   
+        }
+        .table th {
+           text-align: center;   
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body><div ng-app="myPostApp" ng-controller="notesCtl">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Class Notes - Aaron Vontell</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Notes Home</a>
+                    </li>
+                    <li>
+                        <a href="post/{{currentId - 1}}">Previous</a>
+                    </li>
+                    <li>
+                        <a href="post/{{currentId + 1}}">Next</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Static Checking</h1>
+                        <h2 class="subheading">Introduction to 6.005 from spring 2016 at MIT. Covers the topic of Static Checking.</h2>
+                        Lecture 1 (6.005)
+                        <span class="meta">Posted by <a href="http://avontell.com">Aaron Vontell</a> on 2/3/16</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                    <p>
+                        Today&#39;s class focused on an introduction to our first computational models, Circuits and Finite Automata. Additionally, full class notes can be viewed <a href="https://stellar.mit.edu/S/course/6/sp16/6.045/courseMaterial/topics/topic1/lectureNotes/lec3/lec3.pdf">here</a>.<br /><br />
+                        Other Important Notes
+                        <ul>
+                            <li>Midterm is on Tuesday, March 29, in class</li>
+                            <li>PSET 1 to be released on Monday</li>
+                        </ul>
+                    
+                    <h2 class="section-heading">What is a circuit?</h2>
+                    
+                    <p>In this class, we will not be talking about electrical circuits, which have closed cycles. Rather, for computer science, our circuits cannot have any cycles. We have an input, some logic it passes through, and some output. For example, boolean functions take in an n-bit string and output a single bit answer:$$f: \{0,1\}^n \rightarrow \{0,1\}$$</p>
+                    <p>Some examples of boolean functions include OR, parity, and the majority function.</p>
+                    <img style="margin: auto auto;" class="img-responsive" src="http://www.labbookpages.co.uk/teaching/evoHW/files/lab2/voter.jpg" alt="">
+                    <span style="margin: auto auto;" class="caption text-muted">The majority circuit.</span>
+                    <p>Now, how can we interpret the input? We do so by using logic gates to decompose our input into usable chunks. For example, we may use the following gates:</p>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Gate</th>
+                            <th>Equation Representation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>NOT</td>
+                            <td>\(x+1\ (mod\ 2)\)</td>
+                          </tr>
+                          <tr>
+                            <td>AND</td>
+                            <td>\(xy\)</td>
+                          </tr>
+                          <tr>
+                            <td>OR</td>
+                            <td>\(x+y-xy\)</td>
+                          </tr>
+                          <tr>
+                            <td>XOR</td>
+                            <td>\(x+y\ (mod\ 2)\)</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        The overall idea is to apply these logic operations on inputs, and then use those outputs in other logical operations. Remember that these logic gates are also associative, meaning they can be cascaded and stringed together to form operations on large input strings.
+                    </p>
+                    <h2 class="section-heading">Universal gates</h2>
+                    <p>However, how many and which gates can be grouped together in order to be considered <b>universal</b>; that is, by composing anything out of this designated set of gates, we can represent <i>every</i> boolean function \(f: \{0,1\}^n \rightarrow \{0,1\}\) (where 0 and 1 are also allowed).</p>
+                    <p>Some examples of <b>non-universal</b> gates includes \(\{AND\}\), \(\{OR\}\), \(\{NOT\}\), \(\{\}\), \(\{AND, OR\}\), and \(\{XOR, NOT\}\). Why are these not universal? We can prove this by using a preserved invariant, looking at the equation representations of the above gates.</p>
+                    <p>For example, let&#39;s take a look at the set \(\{AND, OR\}\). Turns out that this set of gates can only give rise to <b>monotone</b> boolean functions. This means that if \(x \le y\), then \(f(x) \le f(y)\). On other words, changing an input from 0 to 1 will cause output to change from a 0 to 1. The output only ever increases as the input increases, which makes operations such as NOT impossible, as it requires a decrease in output as input is increased. Only monotone functions can be created from the set \(\{AND, OR\}\) (this also means that <i>every</i> monotone function can be created with this set).</p>
+                    <p>The set \(\{XOR, NOT\}\) is also not linear due to the degree of its equations. Both gates are linear, but AND and OR require degree two polynomials, making it impossible to derive them.</p>
+                    <p>From these two examples, it was actually found that if a the set of gates are only monotone and / or linear, then they will not be universal. In fact, it is interesting that a set being universal is quite common; it is the non-universal sets that are rare.</p>
+                    <h2 class="section-heading">Review of asymptotic notation</h2>
+                    <p>The following is a list of important definitions of asymptotic bounds:</p>
+                    <ul>
+                        <li>\(f(n) = O(g(n))\) if \(\exists A > 0 \ s.t.\ f(n) \le Ag(n)\) for all sufficiently large \(n\)</li>
+                        <li>\(f(n) = \Omega(g(n))\) if \(g(n)=O(f(n))\)</li>
+                        <li>\(f(n) = \Theta(g(n))\) if \(f(n)=O(g(n))\ and\ \Omega(g(n))\)</li>
+                        <li>\(f(n) = o(g(n))\) if \(\forall c \ge 0, f(n) \lt cg(n)\) for all sufficiently large \(n\)</li>
+                    </ul>
+                    
+                    <h2 class="section-heading">Theorem: {AND, OR, NOT} is universal.</h2>
+                    
+                    <p>We can prove this theorem through an example, and also through a formal proof.</p>
+                    <p>The number of gates needed for an operation on an n-bit string is \(O(n2^n)\). It turns actually turns out that \(\{AND, NOT\}\) is universal, since we can make an OR gate use De Morgan&#39;s law. Also, this means that  \(\{NAND\}\) by itself is universal.</p>
+                    <p>But using just NAND gates, can we say the upperbound on how many gates are needed to be represent any boolean function?</p>
+                    <p>Claude Shannon provided some insight on this in 1949, when he discovered that "There necessarily exists a boolean function on n - bits such that any circuit requires \(\Omega(2^n/n)\) gates. In fact, almost any function does."</p>
+                    <p>This can be proved through a counting argument - there are \(2^{2^n}\) boolean functions, since the truth table has size \(2^n\), and each output is independent. By using just NAND gates, with an n-bit input, 0, 1, and where each NAND takes two bits, we can find the number of possible circuits we can make. Since for every NAND we add, there is a new input, we have that we can make \({n+T+2 \choose 2}\) different circuits.</p>
+                    <p>With that answer and some extra math, we find that \(T = \Omega(2^n/n)\), confirming the lower bound on the number of gates needed to create every boolean function</p>
+                    
+                    <h2 class="section-heading">Circuit Limitations</h2>
+                    
+                    <p>Circuits are not too shabby at being a computational model; however, it does have its limits. They can only handle inputs of fixed size, and they also have a lack of memory. We want to handle input strings of any size, but circuits are <b>non-uniform</b>. A <b>uniform</b> model will take in any size input, which is achievable by finite automata, which we will see next time.</p>
+                    <!--p>\(ax^2 + bx + c = 0\)
+
+                        $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
+
+                    </p>
+
+                    <blockquote></blockquote>
+
+                    <h2 class="section-heading"></h2>
+
+                    <img class="img-responsive" src="http://www.labbookpages.co.uk/teaching/evoHW/files/lab2/voter.jpg" alt="">
+                    <span class="caption text-muted">This would be an example caption.</span-->
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-lg-12">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="https://github.com/vontell" class="btn-social btn-outline hvr-grow"><i class="fa fa-fw fa-github"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/pub/aaron-vontell/97/681/650" class="btn-social btn-outline hvr-grow"><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/avontell" class="btn-social btn-outline hvr-grow"><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/aaronkidd96" class="btn-social btn-outline hvr-grow"><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/+AaronVontell96/about/" class="btn-social btn-outline hvr-grow"><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Aaron Vontell 2015
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</div></body>
+
+<script>
+
+    var id = location.href.slice(location.href.indexOf('?')).slice(4);
+
+    var appPost = angular.module('myPostApp', []);
+    appPost.controller('notesCtl', function($rootScope, $scope, $http, $sce, $window) {
+    $http.get('/api/posts/' + id).
+        success(function(data) {
+            $scope.currentId = parseInt(id);
+            $scope.post = data[0];
+            $window.document.title = $scope.post.title;
+            $scope.htmlContent = $sce.trustAsHtml($scope.post.content);
+        });
+    });
+
+</script>
+
+</html>
