@@ -117,78 +117,102 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-                    <p>
-                        Today&#39;s class focused on an introduction to our first computational models, Circuits and Finite Automata. Additionally, full class notes can be viewed <a href="https://stellar.mit.edu/S/course/6/sp16/6.045/courseMaterial/topics/topic1/lectureNotes/lec3/lec3.pdf">here</a>.<br /><br />
-                        Other Important Notes
+                    
+                    <p>Notes from a lecture on Finite Automata and Regular Languages. Adaption of the original class notes, which can be found <a href="https://stellar.mit.edu/S/course/6/sp16/6.045/courseMaterial/topics/topic1/lectureNotes/lec3/lec3.pdf">here</a>.<br /><br />
+                        Today&#39;s Topics:
+                        <br />
                         <ul>
-                            <li>Midterm is on Tuesday, March 29, in class</li>
-                            <li>PSET 1 to be released on Monday</li>
+                            <li>Automata</li>
+                            <li>Regular Languages</li>
+                            <li>DFAs vs NDFAs</li>
+                        </ul>
+                    </p>
+                
+                    <h2 class="section-heading">Finite Automata</h2>
+                
+                    <p>A finite automaton is a machine with a finite number of gates that reads one input character at a time. With each bit inputted, the DFA (deterministic finite automata) moves to a new state based on that current input. The goal of the FA is to check some property of an input string. Finite automatons can be represented in the following way:</p>
+            
+                    <img style="margin:auto auto;" class="img-responsive" src="http://www.expertsmind.com/CMSImages/36_finite%20automata.png" alt="">
+                    <span style="margin:auto auto;" class="caption text-muted">Example of a finite automaton</span>
+                
+                    <p>$$Tuple\ of\ values\ : (Q, \Sigma, \delta, q_0, F)$$</p>
+                    <p>$$
+                        \begin{equation*}
+                        \begin{split}
+                            Q & = Possible\ States \\
+                            \Sigma & = Alphabet \\
+                            \delta &= Transition\ Function\ (Q\times \Sigma \rightarrow Q) \\
+                            q_0 &= Start\ State\ (q_0 \in Q) \\
+                            F &= Accept\ States\ (F \subseteq Q) \\
+                        \end{split}
+                        \end{equation*}
+                        $$</p>
+                
+                    <p><b>Example 1:</b> Design an automaton that accepts strings of {"a", "b"} that have an even number of "a" letters: </p>
+                
+                    <img style="margin:auto auto;" class="img-responsive" src="http://word-to-html-images.s3.amazonaws.com/9780073191461/6034-2-1-i6.png" alt="">
+                
+                    <p><b>Example 2:</b> Design an automaton that reads strings of a&#39;s and b&#39;s and accepts strings that begin and end with the same symbol. The key is to record the start state: </p>
+                
+                    <img style="margin:auto auto;" class="img-responsive" src="http://i.imgur.com/qRr5Yky.jpg" alt="">
+                
+                    <p>This problem can also be restated to say "Find the automaton that <b>accepts the language</b> where all strings start and end with the same symbol."</p>
+                
+                    <h2 class="section-heading">Languages</h2>
+                
+                    <p>A DFA D accepts a <b>language</b> (set of finite strings) \(L \subseteq \Sigma^*\). A commons choice for a language is the boolean alphabet, or simply \(\Sigma = \{0,1\}\). If that is our language, than \(\Sigma^* = \{\oslash, 0, 1, 00, 01, 10, 11, 000, ... \}\) is our set of words, in lexicographic order (and where each word is <b>finite</b>).</p>
+                
+                    <p>A DFA D accepts a language if \(\forall x \in \Sigma^*, D\ accepts\ x \implies x \in L\)</p>
+                
+                    <p>Additionally, a language \(L\) is <b>regular</b> if there&#39;s some DFA that accepts it. In other words, the language \(L\) can be recognized by some finite automaton.</p>
+                    
+                    <p>If the language we are working with is finite, then we can make a huge tree where it&#39;s depth is equal to the longest word in the language. With this tree we can cover all possible combination of letters, while putting accepting states at the points where words terminate, and reject states past the end of the tree.</p>
+                    
+                    <p>However, <i>are there any languages that are not regular</i>? There are!</p>
+                    <p><b>Theorem: </b>\(L \subseteq \{L, R\}^*\) with some number of \(L\) and \(R\) is not regular. In other words, there is no finite automaton that can act as a palindrome detector. We can prove this using the <b>pigeonhole principle</b>.</p>
+                
+                    <p>Let&#39;s start by looking at the state of automaton at the center of the string. We can first realize that, while moving through the first half of the string, we have encountered a finite number of states (the number of states in our automaton), but there are an infinite number of ways we could have visited those states. Through the pigeonhole principle, this means that there must be multiple ways to get to the same state within the first half of the string.</p>
+                    <p>Now, let&#39;s assume we have two strings \(x\) and \(y\), chosen such that the state reached halfway through the string is the same. If we take the first half of \(x\) and the second half of \(y\) and "glue" them together, then the automaton will accept even though the two halves of the string are different, because of that similar middle state. </p>
+                
+                    <h2 class="section-heading">Pumping Lemma</h2>
+                
+                    <p>If \(A \subseteq \Sigma^*\) is regular, \(\exists p\) such that if \(S \in A\), \(|S| \ge p\), then \(S=xyz\) with \(|y| \gt 0\) such that \(xy^iz\ \in A\ \forall i \ge 0\)</p>
+                
+                    <h2 class="section-heading">Nondeterministic Finite Automata (NDFA)</h2>
+                
+                    <p>An NDFA works just like a DFA, but an input is allowed to change the state of the machine to more than one state. For example, with an input of 1, the NDFA might go from state A to B, or A to C. Therefore, \(\delta\) has a new definition:$$\delta:(Q \times(\Sigma \cup \{\epsilon\}) \rightarrow 2^Q$$</p>
+                    <p>An NDFA \(N\) accepts if there exists a path compatible with \(x\) that ends in an accept state. Null transitions are also allowed, or transitions you can take without reading any symbols. Finally, there is an important <b>theorem</b>: "NDFA"="DFA", and every language recognized by an NDFA is regular.</p>
+                
+                    <p><b>Example:</b> Automaton for "Does your string have the substring 11 or 101?"</p>
+                
+                    <img style="margin:auto auto;" class="img-responsive" src="http://i.imgur.com/14k8hTd.jpg?1" alt="">
+                
+                    <!--p>
+                        Today&#39; recitation reviewed the following topics
+                        <br />
+                        <ul>
+                            <li>Interval scheduling</li>
+                            <li>Master&#39;s theorem</li>
+                            <li>Closest pair of points</li>
+                            <li>Weighted interval scheduling</li>
                         </ul>
                     
-                    <h2 class="section-heading">What is a circuit?</h2>
+                    <h2 class="section-heading">Master&#39;s Theorem</h2>
                     
-                    <p>In this class, we will not be talking about electrical circuits, which have closed cycles. Rather, for computer science, our circuits cannot have any cycles. We have an input, some logic it passes through, and some output. For example, boolean functions take in an n-bit string and output a single bit answer:$$f: \{0,1\}^n \rightarrow \{0,1\}$$</p>
-                    <p>Some examples of boolean functions include OR, parity, and the majority function.</p>
-                    <img style="margin: auto auto;" class="img-responsive" src="http://www.labbookpages.co.uk/teaching/evoHW/files/lab2/voter.jpg" alt="">
-                    <span style="margin: auto auto;" class="caption text-muted">The majority circuit.</span>
-                    <p>Now, how can we interpret the input? We do so by using logic gates to decompose our input into usable chunks. For example, we may use the following gates:</p>
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Gate</th>
-                            <th>Equation Representation</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>NOT</td>
-                            <td>\(x+1\ (mod\ 2)\)</td>
-                          </tr>
-                          <tr>
-                            <td>AND</td>
-                            <td>\(xy\)</td>
-                          </tr>
-                          <tr>
-                            <td>OR</td>
-                            <td>\(x+y-xy\)</td>
-                          </tr>
-                          <tr>
-                            <td>XOR</td>
-                            <td>\(x+y\ (mod\ 2)\)</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                    <p>
-                        The overall idea is to apply these logic operations on inputs, and then use those outputs in other logical operations. Remember that these logic gates are also associative, meaning they can be cascaded and stringed together to form operations on large input strings.
+                    <p>When we have a recursion of the following form, we can use Master&#39;s Theorem to solve the recursion and derive an asymptotic bound. We use the below cases to determine the form of the asymptotic bound:$$T(n)=aT(n/b)+f(n)$$
+                        <ol>
+                            <li>\(f(n)\) polynomial is smaller than \(n^{\log_b(a)}\) &rarr; \(T(n)=\Theta(n^{\log_b(a)})\)</li>
+                            <li>\(f(n)=\Theta(n^{\log_b(a)}\log^{k}n),\ k \ge 0\) &rarr; \(T(n)=\Theta(n^{\log_b(a)}\log^{k+1}n)\)</li>
+                            <li>\(n^{\log_b(a)}\) polynomial smaller than \(f(n)\) &rarr; \(T(n)=\Theta(f(n))\)</li>
+                        </ol>
                     </p>
-                    <h2 class="section-heading">Universal gates</h2>
-                    <p>However, how many and which gates can be grouped together in order to be considered <b>universal</b>; that is, by composing anything out of this designated set of gates, we can represent <i>every</i> boolean function \(f: \{0,1\}^n \rightarrow \{0,1\}\) (where 0 and 1 are also allowed).</p>
-                    <p>Some examples of <b>non-universal</b> gates includes \(\{AND\}\), \(\{OR\}\), \(\{NOT\}\), \(\{\}\), \(\{AND, OR\}\), and \(\{XOR, NOT\}\). Why are these not universal? We can prove this by using a preserved invariant, looking at the equation representations of the above gates.</p>
-                    <p>For example, let&#39;s take a look at the set \(\{AND, OR\}\). Turns out that this set of gates can only give rise to <b>monotone</b> boolean functions. This means that if \(x \le y\), then \(f(x) \le f(y)\). On other words, changing an input from 0 to 1 will cause output to change from a 0 to 1. The output only ever increases as the input increases, which makes operations such as NOT impossible, as it requires a decrease in output as input is increased. Only monotone functions can be created from the set \(\{AND, OR\}\) (this also means that <i>every</i> monotone function can be created with this set).</p>
-                    <p>The set \(\{XOR, NOT\}\) is also not linear due to the degree of its equations. Both gates are linear, but AND and OR require degree two polynomials, making it impossible to derive them.</p>
-                    <p>From these two examples, it was actually found that if a the set of gates are only monotone and / or linear, then they will not be universal. In fact, it is interesting that a set being universal is quite common; it is the non-universal sets that are rare.</p>
-                    <h2 class="section-heading">Review of asymptotic notation</h2>
-                    <p>The following is a list of important definitions of asymptotic bounds:</p>
-                    <ul>
-                        <li>\(f(n) = O(g(n))\) if \(\exists A > 0 \ s.t.\ f(n) \le Ag(n)\) for all sufficiently large \(n\)</li>
-                        <li>\(f(n) = \Omega(g(n))\) if \(g(n)=O(f(n))\)</li>
-                        <li>\(f(n) = \Theta(g(n))\) if \(f(n)=O(g(n))\ and\ \Omega(g(n))\)</li>
-                        <li>\(f(n) = o(g(n))\) if \(\forall c \ge 0, f(n) \lt cg(n)\) for all sufficiently large \(n\)</li>
-                    </ul>
+                
+                    <h2 class="section-heading">Closest Pair of Points</h2>
+                
+                    <p>Imagine we have \(n\) points, each with a coordinate \(x_i, y_i\). We can use divide and conquer to find the closest pair of points.</p>
+                    <p><b>Step One:</b> Make two sorted arrays using merge sort, with one array having all points sorted by their \(x\) coordinate in ascending order, and the other having all points sorted by their \(y\) coordinates in ascending order. Both of these steps takes \(O(n\log n)\) to sort.</p>
+                    <p><b>Notes to be continued...</b></p-->
                     
-                    <h2 class="section-heading">Theorem: {AND, OR, NOT} is universal.</h2>
-                    
-                    <p>We can prove this theorem through an example, and also through a formal proof.</p>
-                    <p>The number of gates needed for an operation on an n-bit string is \(O(n2^n)\). It turns actually turns out that \(\{AND, NOT\}\) is universal, since we can make an OR gate use De Morgan&#39;s law. Also, this means that  \(\{NAND\}\) by itself is universal.</p>
-                    <p>But using just NAND gates, can we say the upperbound on how many gates are needed to be represent any boolean function?</p>
-                    <p>Claude Shannon provided some insight on this in 1949, when he discovered that "There necessarily exists a boolean function on n - bits such that any circuit requires \(\Omega(2^n/n)\) gates. In fact, almost any function does."</p>
-                    <p>This can be proved through a counting argument - there are \(2^{2^n}\) boolean functions, since the truth table has size \(2^n\), and each output is independent. By using just NAND gates, with an n-bit input, 0, 1, and where each NAND takes two bits, we can find the number of possible circuits we can make. Since for every NAND we add, there is a new input, we have that we can make \({n+T+2 \choose 2}\) different circuits.</p>
-                    <p>With that answer and some extra math, we find that \(T = \Omega(2^n/n)\), confirming the lower bound on the number of gates needed to create every boolean function</p>
-                    
-                    <h2 class="section-heading">Circuit Limitations</h2>
-                    
-                    <p>Circuits are not too shabby at being a computational model; however, it does have its limits. They can only handle inputs of fixed size, and they also have a lack of memory. We want to handle input strings of any size, but circuits are <b>non-uniform</b>. A <b>uniform</b> model will take in any size input, which is achievable by finite automata, which we will see next time.</p>
                     <!--p>\(ax^2 + bx + c = 0\)
 
                         $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
@@ -199,7 +223,7 @@
 
                     <h2 class="section-heading"></h2>
 
-                    <img class="img-responsive" src="http://www.labbookpages.co.uk/teaching/evoHW/files/lab2/voter.jpg" alt="">
+                    <img style="margin:auto auto;" class="img-responsive" src="http://www.labbookpages.co.uk/teaching/evoHW/files/lab2/voter.jpg" alt="">
                     <span class="caption text-muted">This would be an example caption.</span-->
 
                 </div>
