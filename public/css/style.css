@@ -41,6 +41,8 @@
 
 .chip-large {
     width: 100%;
+    max-width: 128px;
+    margin-left: 0px;
 }
 
 .chip:hover {
