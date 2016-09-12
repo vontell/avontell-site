@@ -19,10 +19,6 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
 
-    // views is directory for all template files
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'ejs');
-
     app.get('/', function(request, response) {
       response.render('public/index.html');
     });
@@ -61,6 +57,7 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
         });
     });
     
+    /* DISABLED UNTIL SECURITY IS IMPLEMENTED
     app.post('/api/posts/', function(request, response) {
         db.collection('posts').distinct('id', function(err, results){
             var max = 0;
@@ -92,6 +89,7 @@ mongo.MongoClient.connect(mongoUri, function(err, db) {
             });
         });
     });
+    */
 
     // Catch 404 and forward to error handler
   	app.use(function(req, res, next) {
