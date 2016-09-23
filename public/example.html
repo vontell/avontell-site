@@ -119,8 +119,8 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Creating Beautiful Websites</h1>
-                        <h2 class="subheading">Learn which front-end and UI frameworks to use when creating modern websites that follow best practices in design.</h2>
+                        <h1>The Mistake of Universal Mobile Design</h1>
+                        <h2 class="subheading">Learn why designing applications for multiple platforms requires going back to the drawing board.</h2>
                         {{post.class}}
                         <span class="meta">Posted by <a href="{{post.authorurl}}">Aaron Vontell</a> on Sept 12, 2016</span>
                     </div>
@@ -133,45 +133,32 @@
     <article>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-bind-html="htmlContent">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     
-                    <p>Time and time again, I have had friends and colleagues ask me which front-end frameworks and design guidelines to use when making a website. This is an interesting question, as well as a hard one to answer, because everyone has different design tastes. The color scheme you pick may be one person's favorite, but another's worst nightmare.</p>
+                    <p>There is a major problem today with the way that mobile applications are designed. Tell me, how many times have you found yourself in the following situation:</p>
+
+                    <p><blockquote>You recently picked up some contractual work with a small time company to create an iOS application. Your point of contact debriefs you on the project and functionality of the app, and all seems well with what they are asking for. But then they show you their designs, and you think to yourself, <b>who the hell made these?</b></blockquote>
+                    The designs look decent, modern even. However, you think about the platform you are using, and you know that this application will stick out like a sore thumb. It has no external consistency with the other apps on the user's device. The components look different, the contrast of colors are different, and the navigation bar is on the top of the screen when it should be at the bottom.</p>
+
+                    <p>I have been in this kind of situation many times, and I always express my concerns right away. "I think it all looks pretty nice, but I really think for iOS you want to put the toolbar on the bottom, not the top. Usually you put toolbars on the top for Android."</p>
+
+                    <p>And this is where I crack up on the inside every time: "Oh, I mean, I think it looks ok, and we were actually going to use these designs for both Android and iOS," says the designer.</p>
+
+                    <p>Let that sink in for a moment.</p>
+
+                    <p>Would you design a car and a truck with the same standards? No, you wouldn't, and the same thought should occur when designing mobile applications for different platforms. The user expects to see a certain "flavor" of design within your app. Imagine opening your and Android app to see the glassy look and thin blue icons of an iOS app. It would take my attention away from the function of the app, and I would be wondering why the app looks like that. Just imagine the confusion for our users who have only used one type of OS for their entire lives.</p>
                     
-                    <p>However, while you cannot tend to the needs and want of every individual who uses your website, you can still follow the best practices for design, use trending styles, and engage a user in a way that they expect to be engaged. Below is a listing of what I believe are the best frameworks for user interface design (with a focus on web technologies), and hopefully they will be of some help to you as well.</p>
-                    
-                    <h2 class="section-heading">Material Design</h2>
-                    
-                    <p>My most favorite set of design guidelines is without a doubt <a href="https://material.google.com/" target="_blank">Material Design</a>, developed by Google (primarily for the mobile OS Android). Material Design has been my go-to set of guidelines for any platform I have had to develop on. There a couple of reasons for this:
-                    </p>
-                    
-                    <p><b>Aesthetics</b><br />Material Design introduces a set of components that are aesthetically pleasing, piggybacking on the not-so-new trend of simplicity and minimalism. It uses real-world metaphors for displaying objects, which increases the usability and learnability of the UI.</p>
-                    
-                    <img style="width:100%; padding: 32px;" src="https://material-design.storage.googleapis.com/publish/material_v_9/0B7WCemMG6e0VVFpiZ041SmhwY2c/what_is_material_environment.png" />
-                    
-                    <p><b>Documentation</b><br />I have yet to encounter a set of design guidelines more robust and complete than that for Material Design. <a href="https://material.google.com/" target="_blank">The documentation site</a> details every aspect of every component that you would possibly need to put into your website, whether it be dimensions, animations, typography, <a href="https://design.google.com/icons/" target="_blank">icons</a>, and more.</p>
-                    
-                    <img style="width:100%; padding: 32px;" src="http://3.bp.blogspot.com/-AfzdVbwwmOA/VMJ_bJUk7gI/AAAAAAAAA5I/0Mtq08WIj_w/s1600/materialdesign_introduction.png" />
-                    
-                    <p><b>Ease of Integration</b><br />While the Material Design guidelines are indeed just guidelines, there are many third-party and in-house libraries / frameworks created that implement the designs set forth in the documentation. Two of the best ones I have found are <a href="https://material.angularjs.org/latest/" target="_blank">Angular Material</a> and <a href="http://materializecss.com/" target="_blank">Materialize</a>. As the name might suggest, Angular Material is a front-end framework for AngularJS that implements almost all of the designs, animations, and services outlined in the Material Design specification. Materialize, on the other hand, implements the same set of standards but uses standard CSS and JavaScript (along with SASS for more customization options). Although I personally have not used Materialize much, it is defintely the go-to solution if your website does not use AngularJS.</p>
-                    
-                    <h2 class="section-heading">Bootstrap</h2>
-                    
-                    <p>If Material Design is not your cup of tea, then another popular option for a set of concrete design standards is those available from <a href="http://getbootstrap.com/">Bootstrap</a>. Now, Bootstrap is not a set of design guidelines per se, but it is a library that provides many components that follow a specific theme and feel. Bootstrap also provides their own icons, a <a href="http://www.w3schools.com/bootstrap/bootstrap_grid_system.asp" target="_blank">very useful gridding system</a> for responsiveness, and it is entirely written in standard CSS and JavaScript. On top of that, there are <a href="https://startbootstrap.com/" target="_blank">hundreds of free templates</a> that can be used to get an easy start to your website.</p>
-                    
-                    <p>However, in my professional opinion, I would <i>try to stay away from Bootstrap</i>. Now, Bootstrap is a fantastic tool for the early stages of your website. The problem is that <i>literally thousands of websites use Bootstrap</i>. When someone visits your site, there is a good chance that it will look exactly like all of the other sites out there. If you want to design a unique site that grabs a user's attention, then pick a different framework to go with. If anything, I would use the awesome gridding system that Bootstrap has to offer, and then design my own components to give my websites their own unique theme.</p>
-                    
-                    <h2 class="section-heading">Conclusion</h2>
-                    
-                    <p>Finding the right design for your website is a decision that is entirely up to your own personal likes and dislikes. You may pick and choose how to style your website, but the key is to make sure that the user experiences two things:</p>
-                    
-                    <ul>
-                        <li><b>External Consistency:</b> When the user sees your site for the first time, they should know how to use it through their experience with similar sites. Your styling should not be so crazy as to confuse the user what a certain component does (i.e. don't style a checkbox to look like a radio button).</li>
-                        <li><b>Aesthetics:</b> Ultimately, how your site looks and the way it is organized says a lot about the content of the site, as well as a lot about who you are as a person. No matter what design you go with, have a family member or friend look it over to ensure that it is aethetically pleasing. This will draw your visitors back to your site again and again</li>
-                    </ul>
-                    
-                    <p>If you would like to read more about designing in general, view my posts on 'design' and '6.813' (my notes from a UI design class as MIT).</p>
-                    
-                    <p><b>Do you have a favorite design library or set of guidelines? Let us know in the comments!</b></p>
+                    <img style="width:100%; padding: 32px;" src="http://www.onallcylinders.com/wp-content/uploads/2012/11/CarTruck.bmp" />
+
+                    <p>Not only does the design have a chance to confuse users, but it can also make the development of the application much more challenging. In Android, the default toolbar is set at the top of the screen, with options to either set text for each tab or an icon for each tab. When a developer is tasked with positioning the toolbar at the bottom of the screen, and have each tab contain text and an image, hoops have to be jumped through. The developer needs to add invisible views to push the toolbar down, or add extra layout constraints. Custom views are needed to get the right tab design, and more than often requires some extra touch up to ensure the alignments and font sizes are correct. It is just a hassle, all to create a design effect that goes against the guidelines of the platform. </p>
+                
+                    <img style="width:49%; padding: 32px;" src="http://a5.mzstatic.com/us/r30/Purple5/v4/bc/3a/7c/bc3a7cde-f8f6-a398-f8bb-16135ecb787b/screen696x696.jpeg" />
+                    <img style="width:49%; padding: 32px;" src="https://telegram.org/file/811140117/1/U8DtuwqizBc/f31a8bb95bdf993cea" />
+                    <p class="caption">Telegram is an example of great variation in design for different platforms</p>
+
+                    <p>Now of course, there are always exceptions to these rules; company branding may require different fonts, color schemes, and even UI components. Larger companies can skirt around these issues by even setting standards themselves. However, when designing for any mobile platforms, designers need to take the guidelines set forth by the OS creators into account. I can't stand seeing another single design made for both iOS and Android. There are ways to fit your brand into these guidelines, and even by varying an existing design only slightly from OS to OS, you can make a mobile application that is effective for all users. Remember, as a designer, you are not designing an application that is tailored toward you, or toward your own mobile phone. You are designing for the masses, to make your application accessible to everyone.</p>
+
+                    <p><b>Ever find yourself in a similar situation? Even better, have you been the culprit of creating a universal design for the sake of saving time, money, and effort? Share your experiences in the comment section below.</b></p>
 
                     <!--
 
@@ -293,7 +280,7 @@
             $scope.currentId = parseInt(id);
             $scope.post = data[0];
             $window.document.title = $scope.post.title;
-            $scope.htmlContent = $sce.trustAsHtml($scope.post.content);
+            //$scope.htmlContent = $sce.trustAsHtml($scope.post.content);
         });
     });
 
