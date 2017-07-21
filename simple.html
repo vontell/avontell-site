@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+    <!--- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+	<title>Aaron Vontell</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+    
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- Styling and Fonts
+    ================================================== -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="simple.css">
+    
+    <!-- Scripts
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script src="app.js"></script>
+
+</head>
+<body ng-app="avontellApp">
+    
+    <div id="panel" ng-controller="panelController">
+        
+        <h1 id="title-logo">aaron v.</h1><p id="close-menu" ng-click="close()">close menu</p>
+        <a href="#">Home</a><br />
+        <a href="#blog">Blog</a><br />
+        <a href="#resume">Resume</a><br />
+        <a href="#awards">Awards</a><br />
+        <a href="#projects">Projects</a><br />
+        <a href="#papers">Papers</a><br />
+        <br />
+        <a href="#movies">Movie Reviews</a><br />
+        <a href="#books">Book Reviews</a><br />
+        <br />
+        <a target="_blank" href="https://twitter.com/avontell">Twitter</a><br />
+        <a href="#facebook">Facebook</a><br />
+        
+    </div>
+    
+    <div id="content" ng-controller="baseController">
+        <p id="menuOpen" ng-click="open()">Open</p>
+        <div ng-view></div>
+    </div>
+    
+</body>
