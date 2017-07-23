@@ -20,6 +20,12 @@ app.config(function($routeProvider) {
         .when('/projects', {
             templateUrl : 'pages/projects.html',
             controller  : 'projectsController'
+        })
+    
+        // route for the contact page
+        .when('/awards', {
+            templateUrl : 'pages/awards.html',
+            controller  : 'awardsController'
         });
 });
 
@@ -61,6 +67,11 @@ app.controller('aboutController', function($scope) {
 });
 
 app.controller('projectsController', function($scope) {
+
+    
+});
+
+app.controller('awardsController', function($scope) {
 
     
 });
