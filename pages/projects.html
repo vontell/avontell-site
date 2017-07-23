@@ -1,3 +1,99 @@
 <h2>Projects</h2>
 
 <p id="projects-intro">Below is a list of some of my projects from the past few years, either from my research or from my free time. If you are interested in any or have any questions, let me know from the contact page!</p>
+
+<p>(Hint: Check out my coolest projects, like Battlecode, AMA, and Quantum Program Optimization)</p><br />
+<h2>Quantum Programming Projects</h2>
+<div class="section group">
+    <div class="col span_1_of_3 proj-box">
+        <h3>Quantum Compilers and Circuit Optimization</h3>
+        <p class="proj-caption">While working as an intern at Rigetti Computing, I was tasked with working on the compiler and optimizer which processes <a target="_blank" href="https://arxiv.org/abs/1608.03355">Quil</a> code, which then gets executed on Rigetti's quantum computers. This was a fun challenge for me, which involved thinking about and implementing control flow graph optimization, dead code elimination, quantum gate fusion, and algorithmic techniques for making the quantum virtual machine faster. The project also taught me about the usage of Common Lisp.</p>
+        <p class="proj-info">Writeup and more info coming soon!</p>
+	</div>
+    <div class="col span_1_of_3 proj-box">
+        <h3>FPGA Programming for NV Centers</h3>
+        <p class="proj-caption">Using a high-level FPGA programming interface, this project is geared toward the creation of a tool set for generating conditional pulse sequences. These pulse sequences will be used for nitrogen-vacancy center initialization and Rabi oscillations. See the papers section for more details.</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/artiq-control">github.com/vontell/artiq-control</a></p>
+	</div>
+	<div class="col span_1_of_3 proj-box">
+        <h3>Neural Network for NV-Center Classification</h3>
+        <p class="proj-caption">Using a neural network made with TensorFlow, and a small set of training data consisting of spectrum scans of possible nitrogen-vacancy centers in diamond, we were able to decide with decent accuracy whether or not the given scan was characteristic of a Nitrogen-vacancy center.</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/NV-NeuralNet">github.com/vontell/NV-NeuralNet</a></p>
+	</div>
+</div>
+
+<div class="section group">
+    <div class="col span_1_of_3 proj-box">
+        <h3>Quantum Algorithms</h3>
+        <p class="proj-caption">While working at Rigetti Quantum Computing as a Junior Quantum Engineer Intern, I helped to develop quantum algorithms using their open source platform Forest. I helped to implement algorithms such as Shor's algorithm, amplitude amplification, the quantum Fourier transform, superdense coding, and more.</p>
+        <p class="proj-info">See my contributions at <a target="_blank" href="https://github.com/rigetticomputing/grove">github.com/rigetticomputing/grove</a></p>
+	</div>
+    <div class="col span_1_of_3 proj-box">
+        <h3>Race Against a Quantum Computer</h3>
+        <p class="proj-caption">Using a quantum virtual machine and the Quantum Approximate Optimization Algorithm, my friend <a target="_blank" href="http://harleypatton.com">Harley</a> and I built a website to demo the power of Rigetti's new open source quantum programming platform, called Forest.</p>
+        <p class="proj-info">See the result at <a target="_blank" href="http://demo.rigetti.com">demo.rigetti.com</a></p>
+	</div>
+    <div class="col span_1_of_3 proj-box">
+        <h3>bloch-js</h3>
+        <p class="proj-caption">In part to teach others about quantum computers, my friend <a target="_blank"  href="http://joelin0.github.io">Joe</a> and I built bloch-js, a simple JavaScript plugin for an interactive Bloch sphere. Using three.js, the applet features pannable interactions, arbitrary rotations, precession tracing, and data set simulation.</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/bloch-js">github.com/vontell/bloch-js</a></p>
+	</div>
+</div>
+
+<h2>Web Development Projects</h2>
+<div class="section group">
+    <div class="col span_1_of_3 proj-box" id="battlecode">
+        <h3>Battlecode</h3>
+        <p class="proj-caption">Battlecode is MIT's longest running programming competition, with a new game developed every year. With over 3000 participants (which includes high school students, undergraduates, graduates, and international students), the competition requires the use of AI and strategy to beat another team at a certain task. My role as a developer on the team (after competing for a year as a participant) has been developing a new website and helping to plan the competition.</p>
+        <p class="proj-info">See more at <a target="_blank" href="https://battlecode.org">battlecode.org</a></p>
+	</div>
+    <div class="col span_1_of_3 proj-box">
+        <h3>ErrorCode</h3>
+        <p class="proj-caption">ErrorCode is a code testing platform built during HackMIT 2016. The platform allows users to upload snippets of code which other users can write tests for, in a gamified way. Test cases are upvoted, and users win points based on their test reputation.</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/ErrorCode">github.com/vontell/ErrorCode</a></p>
+	</div>
+    <div class="col span_1_of_3 proj-box">
+        <h3>Judgd</h3>
+        <p class="proj-caption">Using TensorFlow, my friend <a target="_blank" href="https://cepp.ch/">Cooper</a> and I built a website powered by TensorFlow to scrape data from Devpost, a popular hackathon hosting website. After parsing this data with a beefy AWS instance, we were able to predict and view the probability of winning a hackathon based on the number of team members, technologies used, etc...</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/Judgd">github.com/vontell/Judgd</a></p>
+	</div>
+</div>
+
+<h2>Android Development Projects</h2>
+<div class="section group">
+    <div class="col span_1_of_3 proj-box">
+        <h3>IndicatorBinder</h3>
+        <p class="proj-caption">IndicatorBinder is an Android library which makes attaching indicators to your ViewPagers super simple. I started this project out of my own frustration for easily adding this feature to one of my applications. Available for download via Gradle.</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/IndicatorBinder">github.com/vontell/IndicatorBinder</a></p>
+	</div>
+    <div class="col span_1_of_3 proj-box" id="ama">
+        <h3>Accessibility for Mobile Applications</h3>
+        <p class="proj-caption">Under the Decentralized Information Group at MIT CSAIL, this project is devoted to analyzing the landscape of accessibility of native mobile applications. The project also involves working on a tool set and list of resources for developing accessible applications.</p>
+        <p class="proj-info">See the project at <a target="_blank" href="http://ama-csail.github.io">ama-csail.github.io</a></p>
+	</div>
+    <div class="col span_1_of_3 proj-box">
+        <h3>MathIt</h3>
+        <p class="proj-caption">MathIt is an Android application that allows friends to send eachother LaTeX through Facebook Messenger and other social media platforms. I started this project because my friends and I would always have trouble sending long equations through Facebook Messenger. The project uses MathJax to render the LaTeX.</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/MathIt-Android">github.com/vontell/MathIt-Android</a></p>
+	</div>
+</div>
+<div class="section group">
+    <div class="col span_1_of_3 proj-box">
+        <h3>Highlights</h3>
+        <p class="proj-caption">Highlights is an Android application that I worked on with my friends <a href="https://cepp.ch/" target="_blank">Cooper</a> and Ali at HackGT 2016. The application utilizes a machine learning backend which parses recently missed videos from your YouTube subscriptions to provide 10-30 second "summary" clips of that video. These small clips of relevant information are then displayed in a Snapchat-like way.</p>
+        <p class="proj-info">See the code at <a target="_blank" href="https://github.com/vontell/Highlights">github.com/vontell/Highlights</a></p>
+	</div>
+</div>
+
+<h2>Other Projects</h2>
+<div class="section group">
+    <div class="col span_1_of_3 proj-box">
+        <h3>Parcio</h3>
+        <p class="proj-caption">Parcio was a startup operating out of the Boston area, creating an application for crowd-sourced parking discovery, where users could find and mark public parking spaces. I was the lead developer, but near the end of the application development, the two founders who started the company suddenly disappeared... spooky.</p>
+	</div>
+    <div class="col span_1_of_3 proj-box">
+        <h3>CarSwipe</h3>
+        <p class="proj-caption">CarSwipe is a startup which is working on a better way to buy new and used cars from dealerships. The mobile interfaces provide a Tinder-like way to find and show interest in cars. I served as the lead developer until I had to get back to my schoolwork.</p>
+        <p class="proj-info">See the website at <a target="_blank" href="http://carswipe.com">carswipe.com</a></p>
+	</div>
+</div>
