@@ -46,6 +46,42 @@ body {
     display: none;
 }
 
+.blog-img {
+    padding: 32px;
+    margin: auto auto;
+    width: 300px;
+    text-align: center;
+}
+
+.blog-img-half {
+    padding: 32px;
+    width: 20%;
+    text-align: center;
+}
+
+.blog-img-cont {
+    width: 100%;
+    text-align: center;
+}
+
+.blog-caption {
+    font-style: italic;
+}
+
+.blog-byline {
+    font-style: italic;
+}
+
+.blog-link {
+    color: orangered;
+    cursor: pointer;
+}
+
+.caption {
+    font-style: italic;
+    text-align: center;
+}
+
 /* Grid system */
 
 /*  SECTIONS  */
@@ -82,7 +118,9 @@ body {
     #panel { left: -180px; opacity: 0.98}
     #content { left: 0px; }
     #menuOpen { display: inherit; }
-    #close-menu {display: inherit; }
+    #close-menu { display: inherit; }
+    .blog-img { width: 80%; }
+    .blog-img-half {width: 40%; }
 }
 
 @media only screen and (min-width: 721px) {

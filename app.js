@@ -22,6 +22,12 @@ app.config(function($routeProvider) {
             controller  : 'projectsController'
         })
     
+        // route for the blog page
+        .when('/blog', {
+            templateUrl : 'pages/blog.html',
+            controller  : 'blogController'
+        })
+    
         // route for the awards page
         .when('/awards', {
             templateUrl : 'pages/awards.html',
@@ -62,8 +68,15 @@ app.controller('baseController', function($scope, PanelService) {
     
 });
 
-app.controller('homeController', function($scope) {
+app.controller('homeController', function($scope, $location, $anchorScroll) {
     
+    $scope.jumpTo = function(element) {
+
+        $location.path("/blog");
+        $location.hash(element);
+        $anchorScroll($location.hash(element));
+        
+    }
     
 });
 
@@ -75,6 +88,17 @@ app.controller('aboutController', function($scope) {
 app.controller('projectsController', function($scope) {
 
     
+});
+
+app.controller('blogController', function($scope, $location, $anchorScroll) {
+
+    $scope.scrollTo = function(element) {
+        
+        $location.hash(element);
+        $anchorScroll($location.hash(element));
+
+    };
+
 });
 
 app.controller('awardsController', function($scope) {
