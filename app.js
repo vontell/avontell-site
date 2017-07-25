@@ -34,6 +34,18 @@ app.config(function($routeProvider) {
             controller  : 'awardsController'
         })
     
+        // route for the reviews page
+        .when('/reviews', {
+            templateUrl : 'pages/reviews.html',
+            controller  : 'reviewsController'
+        })
+    
+        // route for the blog page
+        .when('/gallery', {
+            templateUrl : 'pages/gallery.html',
+            controller  : 'galleryController'
+        })
+    
         // route for the papers page
         .when('/papers', {
             templateUrl : 'pages/papers.html',
@@ -87,6 +99,22 @@ app.controller('aboutController', function($scope) {
 
 app.controller('projectsController', function($scope) {
 
+    
+});
+
+app.controller('galleryController', function($scope) {
+
+    
+});
+
+app.controller('reviewsController', function($scope, $location, $anchorScroll) {
+    
+    $scope.jumpTo = function(element) {
+
+        $location.hash(element);
+        $anchorScroll($location.hash(element));
+        
+    }
     
 });
 
