@@ -53,9 +53,22 @@ body {
     text-align: center;
 }
 
+.blog-img-large {
+    padding: 32px;
+    margin: auto auto;
+    width: 500px;
+    text-align: center;
+}
+
 .blog-img-half {
     padding: 32px;
     width: 20%;
+    text-align: center;
+}
+
+.blog-img-half-large {
+    padding: 32px;
+    width: 40%;
     text-align: center;
 }
 
@@ -121,6 +134,8 @@ body {
     #close-menu { display: inherit; }
     .blog-img { width: 80%; }
     .blog-img-half {width: 40%; }
+    .blog-img-half-large {width: 80%; }
+    .blog-img-large {width: 80%; }
 }
 
 @media only screen and (min-width: 721px) {

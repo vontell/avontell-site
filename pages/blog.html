@@ -4,9 +4,41 @@
 
 <h2>Quick Links</h2>
 
+<a class="blog-link" ng-click="scrollTo('quantum-analytics')">Analyzing Quantum Programs</a><br />
 <a class="blog-link" ng-click="scrollTo('universal-mistakes')">The Mistake of Universal Mobile Design</a><br />
 <a class="blog-link" ng-click="scrollTo('make-website')">Creating Beautiful Websites</a>
 <br />
+
+<hr id="quantum-analytics" />
+<h2>Analyzing Quantum Programs</h2>
+<p class="blog-caption">Learn about the process and idea behind analyzing quantum programs written in pyQuil.</p>
+<p class="blog-byline">Written by Aaron Vontell on July 26, 2017</p>
+
+<p>We are in the early stages of quantum programming, with modern language and libraries for doing this kind of development only becoming available recently. One of these frameworks is Quil and <a target = "_blank" href="http://pyquil.readthedocs.io/en/latest/">pyQuil</a>, developed by <a target="_blank" href="http://rigetti.com/">Rigetti Computing</a>. Having the honor of working at Rigetti during a summer internship has gotten me very much acquainted with the platform.</p>
+
+<p>Part of my task over that summer was to implement pre-existing quantum algorithms using the Quil ecosystem; for example, my friend Harley and I implemented Shor's algorithm using pyQuil. pyQuil is essentially a Python wrapper for Quil, which is a quantum instruction language used to talk to the quantum computers at Rigetti Computing. The wrapper allows us to construct algorithms in a faster and more efficient way, considering the repetition in many of these algorithms; for example, we don't want to write instructions line by line to apply a Hadamard to each qubit. Instead, pyQuil let's us use for-loops and the like to easily make these programs.</p>
+
+<p>However, this automated program writing is something to be wary of; how do you know that your gate and qubit count is within the bounds set by whichever paper you are implementing from? How do you detect bugs where you program has tons of extra, useless gates, but still outputs the correct answer? These sorts of questions inspired me to write some analytical tools for pyQuil. To my surprise, not only was this little project fun, but it actually helped me find bugs in some of the existing quantum programs.</p>
+
+<p>Within the pyQuil codebase, I built some analysis methods, which can basically be broken down into three categories: counting, plotting, and analysis. For the counting methods, I wanted to be able to determine the number of gates, the types of gates, number of qubits, and number of instructions within a certain Quil program. Using these numbers, my analysis methods take in a Python function which outputs a Quil progam, a list of inputs to construct the program with, and a couple other arguments for determining how to deal with the list of inputs. Finally, I have a plotting function which plots relevant stats, where "relevant" basically means any stat which is non-zero, or any stats that the user requests specifically. The plots are made with the awesome and beatiful plotting library <a target="_blank" href="https://plot.ly/python/">Plotly</a>.</p>
+
+<p>I tested this out with our implementation of the QFT, and the results are below:</p>
+
+<div class="blog-img-cont"><img class="blog-img-half-large" src="../images/qft-analyze.png" /><img class="blog-img-half-large" src="../images/qft-runtime.png" /></div>
+
+<p>Now these are actually some cool results! I can see the growth of CPHASE gates, as well as the time it took to construct the Quil program (this is what I mean by compile time). What's even cooler is that I plotted the theoretical bound from a paper regarding the growth of these gates with respect to the number of qubits being operated on.</p>
+
+<div class="blog-img-cont"><img class="blog-img-large" src="../images/qft-bound.png" /><br /></div>
+
+<p>From this analysis I can see that the number of instructions for my program is growing faster than the theoretical projection for the QFT; this may be due to using a different gate set, or it may be due to larger constant factors in this lower regime of qubits. It may even be a bug with the QFT program; something to look into!</p>
+
+<p>In fact, now that I had this ability to construct these programs, I tried running the QFT on up to 2048 qubits, rather than 0 through about 200 qubits. However, my program crashed! Apparently the code used to implement the QFT Quil program has a recursion depth limit, causing the execution stack to become full. Another bug found! We would have never originally found this bug in the program, because why would we be running the QFT on that many qubits in today's quantum simulators or quantum computers? With these analytical tools, we can begin preparing for future programs which can run on larger qubits.</p>
+
+<p>The use of this software doesn't stop with the QFT; it can be used with any Quil program generator! In fact, we used it to find a few bugs in a friend's code, whose gate counts approached numbers in the billions without him even realizing, with only 50 qubits! We took another look at the code, found the bug, and squashed it.</p>
+
+<p>Unfortunately, this specific analytical tool never got merged into pyQuil; it was a prototype that I spent only a few days on, and the code was quite messy. Hopefully some day soon I get a chance to clean it up, but feel free to check out the <a href="https://github.com/rigetticomputing/pyquil/pull/61" target="_blank">original pull request</a>. I would like to implemented more features, such as an interface that Quil program creators can follow to ensure that they program can be easily passed into the analytical tool. Another feature I started to work on was using NumPy's polyfit function to determine the gate and qubit complexity of a quantum program, for further comparison with theoretical bounds.</p>
+
+<p>All said and done, even as a prototype, I now realize that quantum program analytical tools are pretty important; we are developing low level software, and with these kinds of tools, we can find bugs which would otherwise prohibit our programs from running on larger quantum machines.</p>
 
 <hr id="universal-mistakes" />
 <h2>The Mistake of Universal Mobile Design</h2>
