@@ -28,6 +28,12 @@ app.config(function($routeProvider) {
             controller  : 'blogController'
         })
     
+        // route for the resume page
+        .when('/resume', {
+            templateUrl : 'pages/resume.html',
+            controller  : 'resumeController'
+        })
+    
         // route for the awards page
         .when('/awards', {
             templateUrl : 'pages/awards.html',
@@ -130,6 +136,11 @@ app.controller('blogController', function($scope, $location, $anchorScroll) {
 });
 
 app.controller('awardsController', function($scope) {
+
+    
+});
+
+app.controller('resumeController', function($scope) {
 
     
 });
