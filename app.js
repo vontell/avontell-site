@@ -88,9 +88,9 @@ app.controller('baseController', function($scope, PanelService) {
 
 app.controller('homeController', function($scope, $location, $anchorScroll) {
     
-    $scope.jumpTo = function(element) {
+    $scope.jumpTo = function(element, path) {
 
-        $location.path("/blog");
+        $location.path(path);
         $location.hash(element);
         $anchorScroll($location.hash(element));
         
