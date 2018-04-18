@@ -90,6 +90,15 @@ body {
     cursor: pointer;
 }
 
+.blog-quick a {
+    text-decoration: none;
+}
+
+.blog-byline a {
+    color: orangered;
+    text-decoration: none;
+}
+
 .caption {
     font-style: italic;
     text-align: center;
@@ -140,4 +149,16 @@ body {
 
 @media only screen and (min-width: 721px) {
     #panel { left: 0px; }
+}
+
+.gal-box {
+    text-align: center;
+}
+
+.gallery-image {
+    max-height: 300px;
+}
+
+.gallery-caption {
+    
 }
